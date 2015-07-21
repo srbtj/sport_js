@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{ margin: 0px; padding: 0px;}
+        .box{ width: 100px; height: 300px; position: absolute; left: -100px; top:100px; background-color: greenyellow;}
+        .tip{ width: 30px; height: 40px; position: absolute; right: -30px; top: 120px; background-color: olivedrab;
+            text-align: center; color: white;}
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="tip" id="tip">关注</div>
+</div>
+<script>
+    window.onload = function(){
+        var oDiv1 = document.getElementById('box');
+        var oDiv2 = document.getElementById('tip');
+
+
+        oDiv1.onmouseover = function(){
+            startMove(0,15);
+        }
+
+        oDiv1.onmouseout = function(){
+            startMove(-100,-15);
+        }
+
+
+    }
+</script>
+</body>
+</html>

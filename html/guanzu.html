@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body.ul{ margin: 0px;}
+        /*li{ list-style: none;}*/
+        a{ text-decoration: none; color: #000;}
+        a:hover{ color: blue;}
+        .box{ width: 100px; height: 300px; position: absolute; left: -100px;top: 25%; background-color: greenyellow;}
+        .ctx{ width: 30px;  background-color:  black; color: white; text-align: center;  position: absolute; right: -30px; top:35%;}
+        .list{ margin: 0px; padding: 0px; list-style: none;}
+        .list li{ line-height: 30px; font-size: 14px; margin-left: 10px;}
+        .list li a{ display: block;}
+    </style>
+</head>
+<body>
+<div class="box">
+    <ul class="list">
+        <li>
+            <a href="#sina">新浪</a>
+        </li>
+        <li>
+            <a href="#qq">QQ</a>
+        </li>
+        <li>
+            <a href="#163">网易</a>
+        </li>
+    </ul>
+    <div class="ctx">关注我</div>
+</div>
+<script src="../js/move.js"></script>
+<script>
+    window.onload = function(){
+        var oDiv = document.getElementsByTagName('div'),
+            oDiv1 = oDiv[0],
+            oDiv2 = oDiv[1];
+
+        oDiv1.onmouseover = function(){
+            startMove(oDiv1,0,20);
+        };
+
+        oDiv1.onmouseout = function(){
+            startMove(oDiv1,-100,-20);
+        }
+
+//        function startMove(obj,target,speed){
+//            var oTime = null;
+//            clearInterval(oTime);
+//            oTime = setInterval(function(){
+//                if(obj.offsetLeft >= target){
+//                    clearInterval(oTime);
+//                    obj.style.left = target + 'px';
+//                }else{
+//                    obj.style.left = oDiv1.offsetLeft + speed + 'px';
+//                }
+//            },50);
+//        }
+    }
+</script>
+</body>
+</html>

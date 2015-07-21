@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box{ width: 100px; height: 100px; position: absolute; left: 0px; top: 50px; background-color: greenyellow;}
+    </style>
+</head>
+<body>
+<button class="btn" id="btn">点击</button>
+<div class="box" id="div"></div>
+<script>
+
+    window.onload  = function(){
+        var oBtn = document.getElementById('btn');
+        var oDiv = document.getElementById('div');
+        var oTime = null;
+
+        oBtn.onclick = function(){
+
+            clearInterval(oTime);
+            oTime = setInterval(function(){
+                if(oDiv.offsetLeft >= 500){
+                    clearInterval(oTime);
+                    oDiv.style.left = 500+'px';
+                }
+                oDiv.style.left = oDiv.offsetLeft + 17 + 'px';
+            },50);
+        }
+    }
+</script>
+</body>
+</html>

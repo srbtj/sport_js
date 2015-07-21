@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #img{ width: 300px; height: 300px; margin: 100px; opacity: 0.3; filter:alpha(opacity=30)}
+    </style>
+</head>
+<body>
+<img src="../images/1.jpg" id="img">
+<script src="../js/move.js"></script>
+<script>
+    window.onload = function(){
+        var oImg = document.getElementById('img'),
+             oTime = null,
+             opa = 0;
+
+        oImg.onmouseover = function(){
+            changeOpacity(oImg,100,10);
+//            clearInterval(oTime);
+//            oTime = setInterval(function(){
+//
+//                opa = Math.round(getStyle(oImg,'opacity')*100);
+//
+//                if(opa >= 100){
+//                    clearInterval(oTime);
+//                }else{
+//                    oImg.style.opacity = (opa + 10)/100;
+//                    oImg.style.filter = 'alpha(opacity='+(opa + 10 )+')';
+//                };
+//            },10);
+        };
+        oImg.onmouseout = function(){
+            changeOpacity(this,30,-10)
+        }
+
+    }
+</script>
+</body>
+</html>
