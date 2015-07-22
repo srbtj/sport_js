@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script src="../js/jquery-2.0.3.js"></script>
+<script>
+
+    var optionsCache = {once:true}
+           core_rnotwhite = /\S+/g;
+    function createOptions( options ) {
+        var object = optionsCache[ options ] = {};
+        jQuery.each( options.match( core_rnotwhite ) || [], function( _, flag ) {   //core_rnotwhite = /\S+/g,  匹配空隔
+            object[ flag ] = true;
+        });
+        return object;
+    }
+
+    console.info(createOptions('once'));
+</script>
+</body>
+</html>
