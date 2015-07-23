@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box{ width: 100px;  height: 100px; position: absolute; left: 100px; top: 30px; background-color: green;}
+    </style>
+</head>
+<body>
+<div class="box"></div>
+<script>
+    window.onload = function(){
+        var oDiv = document.getElementsByTagName('div')[0];
+
+        oDiv.onclick = function(){
+            startMove(this,{width:200},10,function(){
+                startMove(this,{height:200},10,function(){
+                    startMove(this,{width:100},-10,function(){
+                        startMove(this,{height:100},-10)
+                    });
+                });
+            });
+        };
+
+
+        function startMove(obj,options,speed,fn){
+
+            clearInterval(obj.timer);
+            obj.cur_val = 0;
+
+            obj.timer = setInterval(function(){
+                obj.flag = true;
+                /**
+                 *  获取指定属性的值
+                 */
+                for(var attr in options){
+
+                    if(attr === 'opacity'){
+                        obj.cur_val = Math.random(getStyle(obj,attr) * 100)
+                    }else{
+                        obj.cur_val = parseInt( getStyle(obj,attr) );
+                    }
+
+                    if(obj.cur_val !== options[attr]){
+                        obj.flag = false;
+
+                        if(attr === 'opacity'){
+                            obj.style[attr] = ( obj.cur_val + speed )/100;
+                            obj.style.filter = 'alpha(opacity='+( obj.cur_val + speed ) +')';
+                        }else{
+                            obj.style[attr] =  obj.cur_val + speed + 'px';
+                        }
+                    }
+                }
+
+                if(obj.flag){
+                    clearInterval(obj.timer);
+                    fn && fn.call(obj);
+                }
+
+            },30);
+        }
+
+        function getStyle(obj,attr){
+            if(obj.currentStyle){
+                return obj.currentStyle[attr];
+            }else{
+                return getComputedStyle(obj,false)[attr];
+            }
+        }
+
+    }
+</script>
+</body>
+</html>

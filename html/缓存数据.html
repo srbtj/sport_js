@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box{ width: 100px; height: 100px;position: absolute; left: 100px; top: 50px; background-color: greenyellow;}
+    </style>
+</head>
+<body>
+<div class="box"></div>
+<script>
+    window.onload = function(){
+        var oDiv = document.getElementsByTagName('div')[0];
+
+        oDiv.onclick = function(){
+            startMove(this,{left:500},0.1);
+        }
+
+        function startMove(obj,options,speed){
+
+            clearInterval(obj.timer);
+            obj.cur_val = 0 ;
+
+            obj.timer = setInterval(function(){
+                obj.flag = true;
+
+                for(var attr in options){
+                    obj.speed = (options[attr] - obj.offsetLeft) * speed;
+                    obj.dis =  obj.speed > 0 ?  Math.ceil( obj.speed ) : Math.floor( obj.speed );
+
+                    if(attr === 'opacity'){
+                        obj.cur_val = Math.random(getStyle(obj,attr)*100);
+                    }else{
+                        obj.cur_val = parseInt(getStyle(obj,attr));
+                    }
+
+                    if(obj.cur_val !== options[attr]){
+                        obj.flag = false;
+
+                        if(attr === 'opacity'){
+                            obj.style[attr] = obj.cur_val + obj.dis ;
+                            obj.style['filter'] = 'alpha(opacity='+( obj.cur_val + obj.dis )+')';
+                        }else{
+                            obj.style[attr] = obj.cur_val + obj.dis + 'px';
+                        }
+                    }
+                }
+
+                if(obj.flag){
+                    clearInterval(obj.timer);
+                }
+            },30);
+
+        }
+
+        function getStyle(obj,attr){
+            if(obj.currentStyle){
+                return obj.currentSrc[attr];
+            }else{
+                return getComputedStyle(obj,false)[attr];
+            }
+        }
+    }
+</script>
+</body>
+</html>
