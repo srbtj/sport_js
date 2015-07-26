@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body,ul{ margin: 0;padding: 0;}
+        .list{ width: 700px; position: absolute; right: 10px; top: 10px; border: 1px solid pink; height: 500px; overflow: auto;}
+        .list li{ list-style: none; line-height: 28px; margin:0 10px; border-bottom:  1px dotted greenyellow; overflow: hidden;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+<textarea rows="5" cols="50" id="ctx"></textarea>
+<button id="btn">留言</button>
+
+<ul id="list" class="list"></ul>
+<script>
+    window.onload = function(){
+        var oBtn = document.getElementById('btn');
+        var oUl = document.getElementById('list');
+        var oCtx = document.getElementById('ctx');
+
+        oBtn.onclick = function(){
+
+            if(!oCtx.value){
+                return;
+            }
+
+            var values = oCtx.value;
+
+            /**
+             *   插入节点 ：
+             *     1. appendChild()
+             *            appendChild 接收一个参数，要添加的元素节点； 在插入的Element元素上调用; 它插入的节点使其成为那个节点上的最的一个子节点;
+             *     2. inertBefore();
+             *            insertBefore 接收两个参数;
+             *              第一个参数： 待插入的节点;
+             *              第二个参数： 已存在的节点, 新节点将插入到该节点的前面;
+             *
+             *    appendChild 与 insertBefore 方法都将由到插入的节点的父节点调用;
+             *
+             *   删除节点 ：
+             *     removeChild()
+             *        removeChild方法是从文档树中删除一个节点; 该方法是由待删除的节点的父节点调用，接收一个参数：即要删除的节点;
+             *
+             *   替换节点 ：
+             *     replaceChild
+             *        replaceChild方法删除一个子节点并用一个新的子节点替代;
+             *           在父节点上调用该方法，第一个参数是新节点，第二个参数是需要替代的节点;
+             */
+            var oLi = document.createElement('li');
+            oLi.innerHTML = values;
+            if(oUl.firstChild){
+                oUl.insertBefore(oLi,oUl.firstChild)
+            }else{
+                oUl.appendChild(oLi);
+            }
+            var iHeight = parseInt(getStyle(oLi,'height'));
+            oLi.style.height = '0px';
+            oLi.style.opacity = 0;
+            startMove(oLi,{height:iHeight,opacity:100 },0.2);
+        }
+
+
+        /**
+         *  物体运动方法
+         *   1. 清除给定对象的定时器
+         *   2. 设置一个定时器  每隔一段时间改变一下当前对象的给的属性的值
+         *   3. 判断物体移到的距离是否与目标位置一致，如果然一致就清楚定时器;  否则继续运动;
+         **/
+
+        /**
+         *  obj:  待移动的对象
+         *  options: 待移动对象的属性 {left:xx.top:xx}
+         *  iSpeed:  移动的速度
+         *  fn:      回调函数;
+         **/
+        function startMove(obj,options,iSpeed,fn){
+
+            clearInterval(obj.timer);
+            /* 获得指定对象属性的当前值 */
+
+            obj.timer = setInterval(function(){
+                /** 对象是否移动到指定位置的标志 */
+                obj.flag = true;
+                for(var attr in options){
+                    obj.cur_val = 0;
+                    if(attr === 'opacity'){
+                        obj.cur_val = Math.round(getStyle(obj,attr)*100);
+                    }else{
+                        obj.cur_val = parseInt(getStyle(obj,attr));
+                    }
+
+                    /**
+                     *  设置当前对象移动的距离，根据指定的速度,计算方法：
+                     *      距离 = ( 目标位置 - 当前移动的距离 ) * 指定的速度;
+                     */
+                    var target = options[attr];
+                    var scale = (target - obj.cur_val) * iSpeed;
+                    obj.scale = scale > 0 ? Math.ceil(scale) : Math.floor(scale);
+
+                    if(obj.cur_val !== target){
+                        obj.flag = false;
+                        if(attr === 'opacity'){
+                            obj.style[attr] = ( obj.cur_val + obj.scale ) / 100;
+                            obj.style.filter = 'alpha(opacity='+( obj.cur_val + obj.scale )+')';
+                        }else{
+                            obj.style[attr] = obj.cur_val + obj.scale + 'px';
+                        }
+                    }
+                }
+                /** 清除定时器 */
+                if(obj.flag){
+                    clearInterval(obj.timer);
+                    fn && f(obj);
+                }
+            },30);
+
+
+        }
+
+        /**
+         *  获得指定的属性值
+         */
+        function getStyle(obj,attr){
+            if(obj.currentStyle){
+                return obj.currentStyle[attr];
+            }else{
+                return getComputedStyle(obj,false)[attr];
+            }
+        }
+
+    }
+</script>
+</body>
+</html>

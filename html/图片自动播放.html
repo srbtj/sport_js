@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>图片自动播放</title>
+    <style>
+        body,ul{ margin: 0;padding: 0;}
+        img{ vertical-align: top;}
+        a{ text-decoration: none; color: #000000;}
+
+        .box{ margin: 100px auto 0; width:788px; height: 280px; border: 1px solid green; position: relative; overflow: hidden }
+        .box .pre,.box .next{ position: absolute; top: 50%; background-color: #eee; width: 30px; line-height: 30px;
+          text-align: center; font-size: 14px; opacity: 0.3; filter:alpha(opacity=30); cursor: pointer;}
+        .box:hover .pre,.box:hover .next{ opacity: 0.8; filter:alpha(opacity=80);}
+        .box .pre{ left: 5px;z-index: 1;}
+        .box .next{ right : 5px;}
+        .box .list{margin: 0px;padding: 0px; position: absolute; top: 0px; left: 0px;}
+        /** li的高度： 270px;
+                宽度： 250px;
+                margin: 上下 ：8  左 ：8  右 ： 0
+                边框 ：1px
+
+            li 实际高度：  280px;  270 + 8 + 2;
+               实际宽度：  260 : 250 + 8 + 2 ;
+        */
+        .box .list li{ list-style: none; float:left; margin: 4px 0 4px 8px; border: 1px solid red; height: 270px;width: 250px;}
+        /** width : 250 :  238 + 10 + 2; height: 200px; 188 + 10 + 2 */
+        .box .list li img{ display: block; width: 238px; margin:5px 5px; height: 188px; border: 1px solid blue;}
+        .box .list li a{ display: block;  text-align: center;  line-height: 30px; overflow: hidden;  margin: 0 5px;   } /* background-color: #eee; opacity: 0.8; filter:alpha(opacity=80); */
+        .box .list li:hover a{ text-decoration: underline; color:blue;}
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <span class="pre"> < </span>
+    <ul class="list">
+        <li>
+            <img src="../images/1.png">
+            <a href="#">测试1测试1测试1测试1测试1测试1测试1测试1测试1测试测试1</a>
+        </li>
+        <li>
+            <img src="../images/2.jpg">
+            <a href="#">测试2</a>
+        </li>
+        <li>
+            <img src="../images/3.jpg">
+            <a href="#">测试3</a>
+        </li>
+        <li>
+            <img src="../images/4.jpg">
+            <a href="#">测试4</a>
+        </li>
+        <li>
+            <img src="../images/5.jpg">
+            <a href="#">测试5</a>
+        </li>
+        <li>
+            <img src="../images/6.jpg">
+            <a href="#">测试6</a>
+        </li>
+    </ul>
+    <span class="next"> > </span>
+</div>
+<script src="../js/autoPlay.js"></script>
+<script src="../js/startMove.js"></script>
+</body>
+</html>

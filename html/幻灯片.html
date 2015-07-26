@@ -1,0 +1,102 @@
+ <!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body,ul{ margin: 0;padding: 0;}
+        .box{ width: 520px; height: 280px; position: relative; margin: 100px auto; border: 1px solid pink; overflow: hidden; }
+        .list{ position: absolute; left: 0; top: 0;}
+        .list li{ list-style: none; float: left;}
+        .list li img{ display: block;}
+        .box p{ position: absolute; bottom: 5px; text-align: center; width: 100%;}
+        .box p span{ background-color: wheat; padding: 1px 6px; margin-left: 2px; border-radius: 50%;}
+        .box p span.current{ background-color: greenyellow;}
+    </style>
+</head>
+<body>
+<div class="box">
+    <ul class="list">
+        <li><img src="../images/1.png"></li>
+        <li><img src="../images/2.jpg"></li>
+        <li><img src="../images/3.jpg"></li>
+        <li><img src="../images/4.jpg"></li>
+        <li><img src="../images/5.jpg"></li>
+        <li><img src="../images/6.jpg"></li>
+    </ul>
+    <p>
+        <span class="current"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </p>
+</div>
+<script src="../js/moveStart.js"></script>
+<script>
+    window.onload = function(){
+        var oDiv = document.getElementsByTagName('div')[0];
+        var oUl = oDiv.getElementsByTagName('ul')[0];
+        var oLi = oUl.getElementsByTagName('li');
+        var oSpan = oDiv.getElementsByTagName('span');
+
+        var li_width = oLi[0].offsetWidth;  //计算li的宽度
+        var li_length = oLi.length;  // 获得li的个数
+
+        oUl.style.width = li_width * li_length + 'px';  /** 获得ul的总宽度 */
+
+        var start = 0;
+
+
+        for(var i = 0; i< oSpan.length ; i++){
+            oSpan[i].index = i;
+            oSpan[i].onmouseover = function(){
+
+                clearInterval(oUl.timer);
+                start = this.index;
+                changePos(this.index);
+            };
+
+            oSpan[i].onmouseout = function(){
+                startPlay();
+            }
+        }
+
+        /**
+         *  改变图片的位置
+         */
+        function changePos(index){
+
+
+
+            for(var j = 0;j<oSpan.length;j++){
+                oSpan[j].className = '';
+            }
+            oSpan[index].className = 'current';
+            var iLeft = li_width * index;
+            //oUl.style.left = -iLeft + 'px';
+            startMove(oUl,{left:-iLeft},0.2);
+
+        }
+         /**
+         *  设置一个计时器  循环播放图片
+         * */
+        function startPlay(){
+
+            clearInterval(oDiv.timer);
+            oDiv.timer = setInterval(function(){
+
+                if(start === oSpan.length){
+                    start = 0;
+                }
+                changePos.call(oSpan[start],start);
+                start++;
+            },2000);
+        }
+
+        startPlay();
+      }
+</script>
+</body>
+</html>

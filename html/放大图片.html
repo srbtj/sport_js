@@ -83,7 +83,7 @@
                 for(var attr in options){
 
                     if(attr === 'opacity'){
-                        obj.cur_val = Math.random(getStyle(obj,attr)*100);
+                        obj.cur_val = Math.round(getStyle(obj,attr)*100);
                     }else{
                         obj.cur_val = parseInt(getStyle(obj,attr));
                     }

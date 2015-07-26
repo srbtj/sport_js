@@ -30,7 +30,7 @@
                     obj.dis =  obj.speed > 0 ?  Math.ceil( obj.speed ) : Math.floor( obj.speed );
 
                     if(attr === 'opacity'){
-                        obj.cur_val = Math.random(getStyle(obj,attr)*100);
+                        obj.cur_val = Math.round(getStyle(obj,attr)*100);
                     }else{
                         obj.cur_val = parseInt(getStyle(obj,attr));
                     }
