@@ -1,0 +1,34 @@
+元素宽度的种类：
+    width : 元素的宽度
+    style.width : 样式宽度
+    clientWidth : 可见宽度  ( 样式宽度 + padding）;
+    offsetWidth : 占位宽度  (可见宽宽度 + border) ;
+
+
+获取元素到body距离：
+<style>
+    #div{padding:40px;}
+    #div{padding:40px;}
+    #div{ height:100px; position:relative;}
+</style>
+
+<div id='div1'>
+    <div id='div2'>
+        <div id='div3'></div>
+    </div>
+</div>
+
+1.如果div1与div2都有定位 或者只有一个有定位，获取到body的距离的方法：
+
+var oDiv1 = document.getElementById('div1');
+var oDiv2 = document.getElementById('div2');
+var oDiv3 = document.getElementById('div3');
+
+/** 设置两个初始值 ： 累加的定位及初始对象 */
+var iTop = 0;
+var obj = oDiv3;
+
+while(obj){
+    iTop += obj.offsetTop;  // offsetTop: 到定位父级的顶部距离;
+    obj = obj.offsetParent; // 定位父级的距离;
+}

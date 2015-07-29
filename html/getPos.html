@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div1{ background-color: olivedrab; padding: 40px;}
+        #div2{ padding: 40px; background-color: greenyellow;}
+        #div3{  padding: 40px; background-color: pink;}
+    </style>
+</head>
+<body>
+<div id="div1">
+    <div id="div2">
+        <div id="div3"></div>
+    </div>
+</div>
+<script>
+    window.onload = function(){
+
+        var oDiv1 = getId('div1');
+        var oDiv2 = getId('div2');
+        var oDiv3 = getId('div3');
+
+        var iTop = 0;
+        var obj = oDiv3;
+
+        while(obj){
+            iTop += obj.offsetTop;
+            obj = obj.offsetParent;
+        }
+
+        console.info(iTop);
+
+        function getId(id){
+            return document.getElementById(id);
+        }
+    }
+</script>
+</body>
+</html>

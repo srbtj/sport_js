@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+<ul id="ul">
+    <li>11111</li>
+    <li class="box">22222</li>
+    <li>33333</li>
+    <li class="box1 box box">44444</li>
+    <li>55555</li>
+</ul>
+<script src="../js/getElementByClassName.js"></script>
+<script>
+    window.onload = function(){
+
+        var oUl = $('ul');
+
+        var arr = getElementByClassName(oUl,'li','box');
+
+        console.info(arr.length);
+    }
+</script>
+</body>
+</html>
