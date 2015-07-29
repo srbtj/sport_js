@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box{width:100px; height:100px; background-color: pink;}
+        .box1 {width:100px; height: 100px; background-color:  greenyellow;}
+        .box2{ width:200px; height: 200px; background-color: blueviolet;}
+    </style>
+</head>
+<body>
+<div class="box">div1</div>
+<div class="box box1">div2</div>
+<script src="../js/ClazzInfo.js"></script>
+<script>
+
+    window.onload = function(){
+
+        var oDiv = document.getElementsByTagName('div');
+
+        var oDiv1 = oDiv[0];
+        var oDiv2 = oDiv[1];
+
+        //addClass()
+//        addClass(oDiv1,'box2');
+
+        removeClass(oDiv2,'box')
+    }
+</script>
+</body>
+</html>
