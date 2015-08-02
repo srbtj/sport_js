@@ -8,30 +8,29 @@
         img{ vertical-align: top;}
         a{ text-decoration: none; color: #000000;}
 
-        .box{ margin: 100px auto 0; width:788px; height: 280px; border: 1px solid green; position: relative; overflow: hidden }
-        .box .pre,.box .next{ position: absolute; top: 50%; background-color: #eee; width: 30px; line-height: 30px;
+        .img_box{ margin: 100px auto 0; width:788px; height: 280px; border: 1px solid green; position: relative; overflow: hidden }
+        .img_box .pre,.img_box .next{ position: absolute; top: 45%; background-color: greenyellow; width: 30px; line-height: 30px;
           text-align: center; font-size: 14px; opacity: 0.3; filter:alpha(opacity=30); cursor: pointer;}
-        .box:hover .pre,.box:hover .next{ opacity: 0.8; filter:alpha(opacity=80);}
-        .box .pre{ left: 5px;z-index: 1;}
-        .box .next{ right : 5px;}
-        .box .list{margin: 0px;padding: 0px; position: absolute; top: 0px; left: 0px;}
+        .img_box:hover .pre,.img_box:hover .next{ opacity: 0.8; filter:alpha(opacity=80);}
+        .img_box .pre{ left: 5px;z-index: 1;}
+        .img_box .next{ right : 5px;}
+        .img_box .list{margin: 0px;padding: 0px; position: absolute; top: 0px; left: 0px;}
         /** li的高度： 270px;
                 宽度： 250px;
                 margin: 上下 ：8  左 ：8  右 ： 0
                 边框 ：1px
-
             li 实际高度：  280px;  270 + 8 + 2;
                实际宽度：  260 : 250 + 8 + 2 ;
         */
-        .box .list li{ list-style: none; float:left; margin: 4px 0 4px 8px; border: 1px solid red; height: 270px;width: 250px;}
+        .img_box .list li{ list-style: none; float:left; margin: 5px 0 5px 10px; height: 270px;width: 250px;}
         /** width : 250 :  238 + 10 + 2; height: 200px; 188 + 10 + 2 */
-        .box .list li img{ display: block; width: 238px; margin:5px 5px; height: 188px; border: 1px solid blue;}
-        .box .list li a{ display: block;  text-align: center;  line-height: 30px; overflow: hidden;  margin: 0 5px;   } /* background-color: #eee; opacity: 0.8; filter:alpha(opacity=80); */
-        .box .list li:hover a{ text-decoration: underline; color:blue;}
+        .img_box .list li img{ display: block; width: 238px; margin:5px 5px; height: 188px; border: 1px solid blue;}
+        .img_box .list li a{ display: block;  text-align: center;  line-height: 30px; overflow: hidden;  margin: 0 5px;   } /* background-color: #eee; opacity: 0.8; filter:alpha(opacity=80); */
+        .img_box .list li:hover a{ text-decoration: underline; color:blue;}
     </style>
 </head>
 <body>
-<div class="box" id="box">
+<div class="img_box" id="box">
     <span class="pre"> < </span>
     <ul class="list">
         <li>

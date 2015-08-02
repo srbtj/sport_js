@@ -8,11 +8,14 @@ window.onload = function(){
         len = oLi.length - 2 > 0 ? oLi.length - 2 :oLi.length;
 
     /* 计算ul的宽度 */
-    var iWidth = parseInt(getStyle(oLi[0],'width')) + parseInt(getStyle(oLi[0],'border'))*2 + parseInt(getStyle(oLi[0],'marginLeft'));
+    var iWidth = parseInt(getStyle(oLi[0],'width'))  + parseInt(getStyle(oLi[0],'marginLeft'));
+
     oUl.style.width = iWidth*oLi.length + 'px';
 
     /** 为每一个li添加鼠标事件 */
     for(var i = 0;i<oLi.length;i++){
+
+        console.info(oLi[i].offsetLeft);
         oLi[i].index = i;
         oLi[i].onmouseover = function(){
             clearInterval(timer);
@@ -41,6 +44,8 @@ window.onload = function(){
                 startIndex--;
             }
             var iLeft =  -(iWidth * startIndex);
+
+            console.info(iLeft);
             startMove(oUl,{left:iLeft},0.2);
         }
         timer = setInterval(startPlay,2000);

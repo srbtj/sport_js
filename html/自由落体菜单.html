@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{ margin: 0;padding: 0;}
+        #list{
+            width: 440px;
+            height: 30px;
+            position: relative;
+            margin: 100px auto;
+            border: 1px solid forestgreen;
+        }
+
+        #list li{
+            list-style: none;
+            float: left;
+            width: 100px;
+            margin-left: 10px;
+            background-color: greenyellow;
+            font: 14px/30 '微软雅黑';
+            text-align: center;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+<ul id="list">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<script>
+
+    window.onload = function(){
+
+        function $(id){
+
+            return document.getElementById(id);
+        }
+
+        var oUl = $('list');
+        var oLi = oUl.getElementsByTagName('li');
+
+        for(var i = 0;i<oLi.length;i++){
+
+            oLi[i].index = i;
+
+            oLi[i].onmouseover = function(){
+
+                startMove_1(this,{height:150},8);
+            }
+
+            oLi[i].onmouseout = function () {
+               startMove_1(this,{height:30},-8);
+            }
+        }
+
+        /**
+         *  弹性运动;
+         * @param obj
+         * @param json
+         * @param speed
+         */
+        function startMove(obj,json,speed){
+
+            clearInterval(obj.timer);
+            obj.iSpeed = 0;
+            obj.dis = 0;
+            obj.timer = setInterval(function(){
+
+                for(var attr in json){
+
+                    obj.dis = parseInt(getStyle(obj,attr)) || 0;
+
+                    obj.iSpeed += (json[attr] - obj.dis) / speed;
+                    obj.iSpeed *= 0.75;
+
+
+                    if(Math.abs( json[attr] - obj.dis ) <= 1 && Math.abs( obj.iSpeed ) <= 1){
+                        clearInterval(obj.timer);
+                        obj.style[attr] = json[attr] + 'px';
+                        obj.iSpeed = 0;
+
+                    } else{
+                        var temp = obj.dis + obj.iSpeed;
+
+                        obj.style[attr] = temp + 'px';
+                    }
+                }
+            },30);
+        }
+
+
+        function startMove_1(obj,json,speed){
+
+            clearInterval(obj.timer);
+
+            obj.iSpeedY = 0,obj.iSpeedX = 0;
+            obj.dis = 0;
+            obj.flag = true;
+
+            /***
+             *
+             *  鼠标移入时
+             *  1. 一开始进来  加速
+             *  2. 到达临界点时做弹性运动
+             *              当速度越来越小，且离目标点最近时  清定时器  改变标记 (全局变量)
+             *
+             *  鼠标移出时
+             *  1.先做加速运动
+             *  同上;
+             */
+            obj.timer = setInterval(function(){
+
+                for(var attr in json){
+
+                    obj.dis = parseInt(getStyle(obj,attr));
+                    obj.iSpeedY += speed;
+                    obj.iSpeedY *= 0.9;
+                    var T = obj.dis + obj.iSpeedY;
+                    if(obj.flag){
+
+                        if(T > json[attr]){
+                            T = json[attr];
+                            obj.iSpeedY *= -1;
+                            obj.iSpeedY *= 0.9;
+                        }
+
+
+                    }else{
+
+                        if(T < json[attr]){
+                            T = json[attr]
+                            obj.iSpeedY *= -1;
+                            obj.iSpeedY *= 0.9;
+                            obj.flag = true;
+                        }
+
+                    }
+                    if(Math.abs(T - json[attr]) <= 1 && Math.abs(obj.iSpeedY) <= 1){
+
+                        clearInterval(obj.timer);
+                        obj.style[attr] = json[attr];
+                        obj.iSpeedY = 0;
+                        obj.flag = false;
+                    }
+
+
+
+                    obj.style[attr] = T + 'px';
+
+                }
+            },30)
+        }
+
+
+        function getStyle(obj,attr){
+
+            if(obj.currentStyle){
+                return obj.currentStyle[attr];
+            }else{
+                return getComputedStyle(obj,false)[attr];
+            }
+        }
+    }
+</script>
+</body>
+</html>
